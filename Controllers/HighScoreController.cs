@@ -13,7 +13,7 @@ namespace core_rest_api.Controllers
     {
         private static readonly string[] UserNames = new[]
         {
-            "wenzzzel", "davwen", "Allyer", "Dailiesst", "Geniusys", "PlotCampy", "ShiyaPeach", "Tinnysve", "FamousBorn"
+            "wenzzzel", "davwen", "Allyer", "Dailiesst", "Geniusys", "PlotCampy", "ShiyaPeach", "Tinnysve", "FamousBorn", "per"
         };
 
         private readonly ILogger<HighScoreController> _logger;
