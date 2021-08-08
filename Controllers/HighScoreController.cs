@@ -29,9 +29,9 @@ namespace core_rest_api.Controllers
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new HighScore
             {
+                UserName = UserNames[rng.Next(UserNames.Length)],
                 Date = DateTime.Now.AddDays(index),
-                HighScore = rng.Next(-20, 55),
-                UserName = UserNames[rng.Next(UserNames.Length)]
+                Score = rng.Next(-20, 55)
             })
             .ToArray();
         }
