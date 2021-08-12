@@ -1,10 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>f069cc85-7568-4cfa-857e-363ef1fd3f62</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="microsoft.entityframeworkcore" Version="5.0.8" />
+    <PackageReference Include="microsoft.entityframeworkcore.design" Version="5.0.8">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="5.0.8" />
+    <PackageReference Include="microsoft.entityframeworkcore.sqlserver.design" Version="1.1.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace core_rest_api
 {
@@ -26,12 +27,14 @@ namespace core_rest_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "core_rest_api", Version = "v1" });
             });
+            services.AddDbContext<MyDbContext>(options => 
+                options.UseSqlServer(Configuration["SqlServerConnectionString"])
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
