@@ -11,11 +11,6 @@ namespace core_rest_api.Controllers
     [Route("[controller]")]
     public class HighScoreController : ControllerBase
     {
-        private static readonly string[] UserNames = new[]
-        {
-            "wenzzzel", "davwen", "Allyer", "Dailiesst", "Geniusys", "PlotCampy", "ShiyaPeach", "Tinnysve", "FamousBorn", "per"
-        };
-
         private readonly ILogger<HighScoreController> _logger;
         private readonly MyDbContext _db;
 
