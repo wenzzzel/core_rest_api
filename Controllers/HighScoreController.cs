@@ -17,15 +17,26 @@ namespace core_rest_api.Controllers
         };
 
         private readonly ILogger<HighScoreController> _logger;
+        private readonly MyDbContext _db;
 
-        public HighScoreController(ILogger<HighScoreController> logger)
+        public HighScoreController(ILogger<HighScoreController> logger, MyDbContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         [HttpGet]
         public IEnumerable<HighScore> Get()
         {
+            var query = 
+                from hs in _db.HighScore
+                select hs;
+
+            // foreach(string entity in query){
+            //     Console.WriteLine(entity);    
+            // }
+	        
+            
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new HighScore
             {
