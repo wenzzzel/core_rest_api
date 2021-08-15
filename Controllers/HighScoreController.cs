@@ -31,20 +31,8 @@ namespace core_rest_api.Controllers
             var query = 
                 from hs in _db.HighScore
                 select hs;
-
-            // foreach(string entity in query){
-            //     Console.WriteLine(entity);    
-            // }
 	        
-            
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new HighScore
-            {
-                UserName = UserNames[rng.Next(UserNames.Length)],
-                Date = DateTime.Now.AddDays(index),
-                Score = rng.Next(-20, 55)
-            })
-            .ToArray();
+            return query;
         }
     }
 }
