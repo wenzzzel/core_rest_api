@@ -29,5 +29,13 @@ namespace core_rest_api.Controllers
 	        
             return query;
         }
+
+        [HttpPost]
+        public async Task<ActionResult<HighScore>> PostHighScoreItem(HighScore highScore){
+            _db.HighScore.Add(highScore);
+            await _db.SaveChangesAsync();
+
+            return highScore;
+        }
     }
 }
