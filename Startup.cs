@@ -32,8 +32,11 @@ namespace core_rest_api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "core_rest_api", Version = "v1" });
             });
+            // services.AddDbContext<MyDbContext>(options => 
+            //     options.UseSqlServer(Configuration["SqlServerConnectionString"])
+            // );
             services.AddDbContext<MyDbContext>(options => 
-                options.UseSqlServer(Configuration["SqlServerConnectionString"])
+                options.UseSqlServer(Environment.GetEnvironmentVariable("AzureConnectionString", EnvironmentVariableTarget.Machine))
             );
         }
 
