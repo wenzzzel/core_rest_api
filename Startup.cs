@@ -32,12 +32,17 @@ namespace core_rest_api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "core_rest_api", Version = "v1" });
             });
-            // services.AddDbContext<MyDbContext>(options => 
-            //     options.UseSqlServer(Configuration["SqlServerConnectionString"])
-            // );
-            services.AddDbContext<MyDbContext>(options => 
-                options.UseSqlServer(Environment.GetEnvironmentVariable("AzureConnectionString", EnvironmentVariableTarget.Machine))
-            );
+
+            // Local secret store is used for connection string in dev env. Env variable in prod env.
+            if(String.IsNullOrEmpty(Configuration["SqlServerConnectionString"])){
+                services.AddDbContext<MyDbContext>(options => 
+                    options.UseSqlServer(Environment.GetEnvironmentVariable("AzureConnectionString"))
+                );
+            } else {
+                services.AddDbContext<MyDbContext>(options => 
+                    options.UseSqlServer(Configuration["SqlServerConnectionString"])
+                );
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
