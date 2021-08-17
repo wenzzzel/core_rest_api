@@ -21,13 +21,17 @@ namespace core_rest_api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<HighScore> Get()
+        public ActionResult<HighScore> Get()
         {
             var query = 
                 from hs in _db.HighScore
                 select hs;
 	        
-            return query;
+            if(query.Count() > 0){
+                return Ok(query);
+            } else{
+                return NoContent();
+            }
         }
 
         [HttpPost]
