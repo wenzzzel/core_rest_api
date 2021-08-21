@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="microsoft.aspnetcore.authentication.jwtbearer" Version="5.0.8" />
+    <PackageReference Include="microsoft.AspNetCore.Identity.Entityframeworkcore" Version="5.0.8" />
+    <PackageReference Include="microsoft.aspnetcore.identity.UI" Version="5.0.9" />
     <PackageReference Include="microsoft.entityframeworkcore" Version="5.0.8" />
     <PackageReference Include="microsoft.entityframeworkcore.design" Version="5.0.8">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
