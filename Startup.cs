@@ -32,6 +32,7 @@ namespace core_rest_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Is this even used?
             services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
 
             services.AddControllers();
@@ -55,7 +56,15 @@ namespace core_rest_api
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(jwt => {
-                var key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
+                byte[] key;
+                if(String.IsNullOrEmpty(Configuration["JwtConfig:Secret"]))
+                {
+                    key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JwtConfigSecret"));
+                }
+                else 
+                {
+                    key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
+                }
 
                 jwt.SaveToken= true;
                 jwt.TokenValidationParameters = new TokenValidationParameters {
