@@ -42,15 +42,19 @@ namespace core_rest_api
             });
 
             // Local secret store is used for connection string in dev env. Env variable in prod env.
-            if(String.IsNullOrEmpty(Configuration["SqlServerConnectionString"])){
+            if(String.IsNullOrEmpty(Configuration["SqlServerConnectionString"]))
+            {
                 services.AddDbContext<MyDbContext>(options => 
                     options.UseSqlServer(Environment.GetEnvironmentVariable("AzureConnectionString"))
                 );
-            } else {
+            } 
+            else 
+            {
                 services.AddDbContext<MyDbContext>(options => 
                     options.UseSqlServer(Configuration["SqlServerConnectionString"])
                 );
             }
+            
             services.AddAuthentication(options => {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;

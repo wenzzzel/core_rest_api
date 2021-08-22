@@ -35,7 +35,8 @@ namespace core_rest_api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<HighScore>> PostHighScoreItem(HighScore highScore){
+        public async Task<ActionResult<HighScore>> PostHighScoreItem(HighScore highScore)
+        {
             _db.HighScore.Add(highScore);
             await _db.SaveChangesAsync();
 

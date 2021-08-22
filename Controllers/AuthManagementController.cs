@@ -14,10 +14,12 @@ using System.Linq;
 using System.Collections.Generic;
 
 
-namespace core_rest_api.Controllers{
+namespace core_rest_api.Controllers
+{
     [Route("[controller]")]
     [ApiController]
-    public class AuthManagementController : ControllerBase {
+    public class AuthManagementController : ControllerBase 
+    {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtConfig _jwtConfig;
 
@@ -31,30 +33,38 @@ namespace core_rest_api.Controllers{
 
         [HttpPost]
         [Route("Register")]
-        public async Task<IActionResult> Register([FromBody] UserRegistrationDto user){
-            if(ModelState.IsValid){
+        public async Task<IActionResult> Register([FromBody] UserRegistrationDto user)
+        {
+            if(ModelState.IsValid)
+            {
                 var existingUser = await _userManager.FindByEmailAsync(user.Email);
 
-                if(existingUser != null){
+                if(existingUser != null)
+                {
                     return BadRequest();
                 }
 
                 var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username };
                 var isCreated = await _userManager.CreateAsync(newUser, user.Password);
-                if(isCreated.Succeeded){
+                if(isCreated.Succeeded)
+                {
                     var jwtToken = GenerateJwtToken(newUser);
 
                     return Ok(new RegistrationResponse(){
                         Success = true,
                         Token = jwtToken
                     });
-                } else {
+                } 
+                else 
+                {
                     return BadRequest(new RegistrationResponse(){
                         Errors = isCreated.Errors.Select(x => x.Description).ToList(),
                         Success = false
                     });
                 }
-            } else {
+            } 
+            else 
+            {
                 return BadRequest(new RegistrationResponse(){
                     Errors = new List<string>() {
                         "Invalid payload"
@@ -110,12 +120,14 @@ namespace core_rest_api.Controllers{
             });
         }
 
-        private string GenerateJwtToken(IdentityUser user){
+        private string GenerateJwtToken(IdentityUser user)
+        {
             var JwtTokenHandler = new JwtSecurityTokenHandler();
 
             var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
 
-            var tokenDescriptor = new SecurityTokenDescriptor{
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
                 Subject = new ClaimsIdentity(new []{
                     new Claim("Id", user.Id),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
