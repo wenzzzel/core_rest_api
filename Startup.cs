@@ -32,6 +32,8 @@ namespace core_rest_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Note: local secret store at C:\Users\wenzz\AppData\Roaming\Microsoft\UserSecrets\f069cc85-7568-4cfa-857e-363ef1fd3f62
+
             if(Configuration.GetSection("JwtConfig").Exists())
             {
                 services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
