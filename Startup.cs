@@ -32,15 +32,13 @@ namespace core_rest_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            if(Configuration.GetSection("JwtConfigSecret").Exists())
+            if(Configuration.GetSection("JwtConfig").Exists())
             {
-                //Env variable, prod env
-                services.Configure<JwtConfig>(Configuration.GetSection("JwtConfigSecret"));
+                services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
             }
             else
             {
-                //Secret store, dev env                
-                services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+                Console.WriteLine("Could not find JwtConfig!"); //TODO: Throw error
             }
             
 
@@ -50,34 +48,17 @@ namespace core_rest_api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "core_rest_api", Version = "v1" });
             });
 
-            // Local secret store is used for connection string in dev env. Env variable in prod env.
-            if(String.IsNullOrEmpty(Configuration["SqlServerConnectionString"]))
-            {
-                services.AddDbContext<MyDbContext>(options => 
-                    options.UseSqlServer(Environment.GetEnvironmentVariable("AzureConnectionString"))
-                );
-            } 
-            else 
-            {
-                services.AddDbContext<MyDbContext>(options => 
-                    options.UseSqlServer(Configuration["SqlServerConnectionString"])
-                );
-            }
+            //TODO: Check if configuration exists and throw error if not
+            services.AddDbContext<MyDbContext>(options => 
+                options.UseSqlServer(Configuration["AzureConnectionString"])
+            );
             
             services.AddAuthentication(options => {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(jwt => {
-                byte[] key;
-                if(String.IsNullOrEmpty(Configuration["JwtConfig:Secret"]))
-                {
-                    key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JwtConfigSecret"));
-                }
-                else 
-                {
-                    key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
-                }
+                byte[] key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
 
                 jwt.SaveToken= true;
                 jwt.TokenValidationParameters = new TokenValidationParameters {
@@ -86,7 +67,7 @@ namespace core_rest_api
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateLifetime = true,
-                    RequireExpirationTime = false //Set to true in production environment
+                    RequireExpirationTime = false //TODO: Set to true in production environment
                 };
             });
 
