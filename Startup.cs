@@ -32,8 +32,17 @@ namespace core_rest_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Is this even used?
-            services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+            if(Configuration.GetSection("JwtConfigSecret").Exists())
+            {
+                //Env variable, prod env
+                services.Configure<JwtConfig>(Configuration.GetSection("JwtConfigSecret"));
+            }
+            else
+            {
+                //Secret store, dev env                
+                services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+            }
+            
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
