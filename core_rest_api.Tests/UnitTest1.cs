@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using core_rest_api;
 
 namespace core_rest_api.Tests
 {
