@@ -1,8 +1,13 @@
 # core_rest_api
+### About
 REST API built with dotnet core for demo purposes. </br>
-Using NUnit for writing tests.
+### Implementations
+✔ Docker for container support </br>
+✔ NUnit for writing tests </br>
+✔ ASP.NET Identity for Authentication & authorization </br>
 
 
+### Endpoints
 ☁ Published to Azure @ http://wenzzzelcorerestapi.northeurope.azurecontainer.io:5000/ </br>
 🧪 Test endpoint @ http://wenzzzelcorerestapi.northeurope.azurecontainer.io:5000/weatherforecast </br>
 🏆 Highscore board @ http://wenzzzelcorerestapi.northeurope.azurecontainer.io:5000/highscore </br>
