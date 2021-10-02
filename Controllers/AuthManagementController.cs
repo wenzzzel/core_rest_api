@@ -187,6 +187,7 @@ namespace core_rest_api.Controllers
 
             return new AuthResult() {
                 Token = jwtToken,
+                ExpiryDate = DateTime.UtcNow.AddMinutes(10),
                 Success = true,
                 RefreshToken = refreshToken.Token
             };
