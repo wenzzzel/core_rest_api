@@ -1,5 +1,7 @@
 # core_rest_api
-REST API built with dotnet core for demo purposes
+REST API built with dotnet core for demo purposes.
+Using NUnit for writing tests.
+
 
 ☁ Published to Azure @ http://wenzzzelcorerestapi.northeurope.azurecontainer.io:5000/ </br>
 🧪 Test endpoint @ http://wenzzzelcorerestapi.northeurope.azurecontainer.io:5000/weatherforecast </br>
